@@ -7,67 +7,111 @@ void main() => runApp(MaterialApp(
 ));
 
 class Home extends StatefulWidget {
+  Home({Key key}) : super(key: key);
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  void openDrawer() {
+    _scaffoldKey.currentState.openDrawer();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color.fromRGBO(66, 230, 180, 1),
+      key: _scaffoldKey,
+      drawer: Drawer(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Text('This is the Drawer'),
+            ],
+          ),
+        ),
       ),
-      endDrawer: Drawer(),
-      body: Container(
-        child: Column(
-          children: <Widget>[
-            Container(
-              height: 200,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [Color.fromRGBO(37, 124, 162, 1), Color.fromRGBO(66, 230, 180, 0.5)])),
-              child: Stack(
-                children: <Widget>[
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              Container(
+                height: 200,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [Color(0xFF04ED9A6), Color(0xFF06AD9C4)])),
+                child: Stack(
+                  children: <Widget>[
 
-                  Positioned(
-                    bottom: 0,
-                    left: 10,
-                    child: Image(
-                      image: AssetImage(
-                        'images/Compass1.png',
-                      ),),
-                  ),
+                    Positioned(
+                        top: 35,
+                        left: 15,
+                        child: Container(
+                            width: 98,
+                            height: 144,
+                            decoration:
+                            BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage(
+                                      'images/Compass1.png'),
+                                  fit: BoxFit
+                                      .fitWidth),
+                            ),
+                        ),
+                    ),
 
-                  Positioned(
-                    bottom: 50,
-                    right: 20,
-                    child: Image(
-                      image: AssetImage(
-                        'images/sphere1.png',
-                      ),),
-                  ),
+                    Positioned(
+                      bottom: 50,
+                      right: 20,
+                      child: Image(
+                        image: AssetImage(
+                          'images/sphere1.png',
+                        ),),
+                    ),
 
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: Image(
-                      image: AssetImage(
-                        'images/sphere2.png',
-                      ),),
-                  ),
-                ],
+                    Positioned(
+                      bottom: -20,
+                      right: 0,
+                      child: Image(
+                        image: AssetImage(
+                          'images/sphere2.png',
+                        ),),
+                    ),
+
+                    Positioned(
+                      top: 30,
+                      right: -10,
+                      child: FlatButton(
+                        onPressed: openDrawer,
+                        child: Icon(
+                          Icons.menu,
+                          size: 45,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+
+              FlatButton(
+                onPressed: openDrawer,
+                child: Icon(
+                  Icons.menu,
+                  size: 45,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
-
 
 
